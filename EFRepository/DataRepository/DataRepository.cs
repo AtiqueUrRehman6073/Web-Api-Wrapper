@@ -37,7 +37,6 @@ namespace EFRepository.DataRepository
                 list = ConverterClass.ConvertDataTable<Employee_Model>(dt);
             }
             return JsonConvert.SerializeObject(list,Formatting.Indented);
-            //return JsonConvert.SerializeObject(dt,Formatting.Indented);
         }
     }
 }
