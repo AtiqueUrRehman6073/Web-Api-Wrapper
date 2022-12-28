@@ -1,4 +1,5 @@
 ﻿using EFDataAccess;
+using EFEntities.DBModels;
 using EFUtilities;
 using Newtonsoft.Json;
 using System;
@@ -26,10 +27,17 @@ namespace EFRepository.DataRepository
 
             Hashtable param = new Hashtable();
             context = new ApplicationDbContext();
+            List<Employee_Model> list = new List<Employee_Model>();
             //param.Add("@pat_Id", "12345");
             DataTable dt = new DataTable();
             dt = await context.SELECT_DATA(SpsName.GET_PATIENT_RECORD, param);
-            return JsonConvert.SerializeObject(dt,Formatting.Indented);
+
+            if(dt.Rows.Count > 0)
+            {
+                list = ConverterClass.ConvertDataTable<Employee_Model>(dt);
+            }
+            return JsonConvert.SerializeObject(list,Formatting.Indented);
+            //return JsonConvert.SerializeObject(dt,Formatting.Indented);
         }
     }
 }

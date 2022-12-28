@@ -38,14 +38,7 @@ namespace EFUtilities
                 {
                     if (pro.Name.ToLower() == column.ColumnName.ToLower())
                     {
-                        if (pro.Name.ToLower() == "duration")
-                        {
-                            pro.SetValue(obj, dr[column.ColumnName], null);
-                        }
-                        else
-                        {
-                            pro.SetValue(obj, dr[column.ColumnName].ToString(), null);
-                        }
+                        pro.SetValue(obj, dr[column.ColumnName].ToString(), null);
                     }
                     else
                         continue;
