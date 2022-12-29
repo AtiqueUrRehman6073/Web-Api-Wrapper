@@ -9,11 +9,13 @@ namespace EFEngine.EFResources
 {
     public class EfResources : IEfResources
     {
-        private Employees? _employees;
-        
+        private readonly IEmployees _employees;
+        public EfResources(IEmployees employees)
+        {
+            _employees = employees;
+        }        
         public async Task<dynamic> EmployeesList()
         {
-            _employees = new Employees();
             return await _employees.EmployeesList();
         }
     }

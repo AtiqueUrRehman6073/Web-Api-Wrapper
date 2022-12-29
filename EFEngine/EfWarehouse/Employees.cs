@@ -7,18 +7,16 @@ using System.Threading.Tasks;
 
 namespace EFEngine.EfWarehouse
 {
-    public class Employees
+    public class Employees: IEmployees
     {
         private readonly IDataRepository _repository;
-        public Employees(){}
         public Employees(IDataRepository repository)
         {
             _repository = repository;
         }
         public async Task<dynamic> EmployeesList()
         {
-            DataRepository _repo = new DataRepository();
-            return await _repo.GetEmployeesList();
+            return await _repository.GetEmployeesList();
         }
     }
 }

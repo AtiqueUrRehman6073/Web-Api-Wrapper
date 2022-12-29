@@ -1,4 +1,5 @@
 using EFEngine.EFResources;
+using Microsoft.Extensions.Configuration;
 using Web_Api_Wrapper.ExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureServices();
+builder.Services.ConfigureSettings(builder.Configuration, (string)builder.Configuration.GetConnectionString("ConnectionString"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

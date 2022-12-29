@@ -4,6 +4,7 @@ using EFUtilities;
 using static System.Net.Mime.MediaTypeNames;
 using System;
 using EFEngine.EFResources;
+using EFEngine.EfWarehouse;
 
 namespace Web_Api_Wrapper.ExtensionMethods
 {
@@ -24,11 +25,15 @@ namespace Web_Api_Wrapper.ExtensionMethods
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
             services.AddScoped<IDataRepository, DataRepository>();
             services.AddScoped<IEfResources, EfResources>();
-
+            services.AddScoped<IEmployees, Employees>();
         }
-        public static void ConfigureSettings(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureSettings(this IServiceCollection services, IConfiguration configuration,string x)
         {
-            services.Configure<ConnectionStrings>(options => configuration.GetSection("ConnectionStrings").Bind(options));
+            //services.Configure<ConnectionStrings>(options => configuration.GetSection("ConnectionStrings").Bind(options));
+            //services.Configure<ConnectionStrings>(options => configuration.GetConnectionString("ConnectionString"));
+            //x = configuration.GetValue<string>("ConnectionStrings");
+            x = configuration.GetConnectionString("DefaultCon");
+            services.Configure<ConnectionStrings>(options => configuration.Bind(options.ConnectionString));
         }
     }
 }

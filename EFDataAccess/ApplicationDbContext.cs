@@ -1,4 +1,5 @@
 ﻿using EFUtilities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,15 @@ namespace EFDataAccess
     public class ApplicationDbContext : IApplicationDbContext
     {
         private readonly ConnectionStrings _context;
-
-        public ApplicationDbContext() { }
-        public ApplicationDbContext(IOptions<ConnectionStrings> context)
+        public ApplicationDbContext(IConfiguration context)
         {
-            _context = context.Value;
+            _context = new ConnectionStrings();
+            _context.ConnectionString = context.GetConnectionString("DefaultCon");
         }
         public async Task<DataTable> SELECT_DATA(string QUERY, System.Collections.Hashtable PARAM)
         {
             DataTable dt = new DataTable();
-            using (SqlConnection SQL_CON = new SqlConnection("Data Source=Dev-Test;Initial Catalog=MTBC-SYNCH;User ID=EDI;Password=edi@mtbc"))
+            using (SqlConnection SQL_CON = new SqlConnection(_context.ConnectionString))
             {
                 using (SqlCommand SQL_COM = new SqlCommand())
                 {
