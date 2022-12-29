@@ -27,12 +27,10 @@ namespace Web_Api_Wrapper.ExtensionMethods
             services.AddScoped<IEfResources, EfResources>();
             services.AddScoped<IEmployees, Employees>();
         }
-        public static void ConfigureSettings(this IServiceCollection services, IConfiguration configuration,string x)
+        public static void ConfigureSettings(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.Configure<ConnectionStrings>(options => configuration.GetSection("ConnectionStrings").Bind(options));
-            //services.Configure<ConnectionStrings>(options => configuration.GetConnectionString("ConnectionString"));
             //x = configuration.GetValue<string>("ConnectionStrings");
-            x = configuration.GetConnectionString("DefaultCon");
+            //x = configuration.GetConnectionString("DefaultCon");
             services.Configure<ConnectionStrings>(options => configuration.Bind(options.ConnectionString));
         }
     }
